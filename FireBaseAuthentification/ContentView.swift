@@ -8,9 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var loginData = LoginData()
+    @AppStorage("login_status") var loginStatus: Bool = false
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            if loginStatus {
+                CostListView(loginData: loginData)
+            } else {
+                LoginFormView(loginData: loginData)
+                    .navigationBarHidden(true)
+            }
+        }
     }
 }
 
